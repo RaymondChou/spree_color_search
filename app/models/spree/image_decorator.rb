@@ -31,7 +31,7 @@ Spree::Image.class_eval do
         next
       end
       color = Spree::Color.new({ :hue => hsv[:h], :sat => hsv[:s], :val => hsv[:v] })
-      self.colors.push(color)
+      colors.push(color)
       num_added += 1
       break if num_added >= 7
     end
