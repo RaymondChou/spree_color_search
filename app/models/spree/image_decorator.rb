@@ -1,4 +1,5 @@
 Spree::Image.class_eval do
+  attr_accessible :colors
 	has_many :colors, :dependent => :destroy
 	after_create :extract_colors
 
