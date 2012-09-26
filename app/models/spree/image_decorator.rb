@@ -3,6 +3,8 @@ Spree::Image.class_eval do
 	after_create :find_colors
 
   require 'color_util'
+  require 'RMagick'
+  include Magick
 
 	def find_colors 
 		dom_colors = extract_colors
@@ -35,6 +37,5 @@ Spree::Image.class_eval do
     end
     self.save
   end
-
   
 end
