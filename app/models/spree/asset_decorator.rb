@@ -1,16 +1,11 @@
 Spree::Image.class_eval do
 	has_many :colors, :dependent => :destroy
-	after_create :find_colors
+	after_create :extract_colors
 
   require 'color_util'
   require 'RMagick'
   include Magick
 
-	def find_colors 
-		dom_colors = extract_colors
-		
-	end
-  
 	def extract_colors
     img = Magick::ImageList.new(self.attachment.to_file.path)
     q = img.quantize(50, Magick::RGBColorspace)
