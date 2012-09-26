@@ -1,6 +1,6 @@
 Spree::Image.class_eval do
   attr_accessible :colors
-	has_many :colors, :dependent => :destroy
+	has_many :colors, :foreign_key => 'image_id', :dependent => :destroy
 	after_create :extract_colors
 
   require 'color_util'
