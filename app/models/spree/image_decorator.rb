@@ -10,7 +10,7 @@ Spree::Image.class_eval do
 		dom_colors = extract_colors
 		
 	end
-  #T1qAp24Wrmirrorimagehome
+  
 	def extract_colors
     img = Magick::ImageList.new(self.attachment.to_file.path)
     q = img.quantize(50, Magick::RGBColorspace)
