@@ -12,7 +12,7 @@ Spree::Image.class_eval do
     q = img.quantize(35, Magick::RGBColorspace)
     palette = q.color_histogram.sort {|a, b| b[1] <=> a[1]}
     num_added = 0
-    (0..50).each do |i|
+    (0..30).each do |i|
       c = palette[i].to_s.split(',').map {|x| x[/\d+/]}
       c.pop
       c[0], c[1], c[2] = [c[0], c[1], c[2]].map { |s| 
@@ -29,7 +29,7 @@ Spree::Image.class_eval do
       color = Spree::Color.new({ :image_id => self.id, :hue => hsv[:h], :sat => hsv[:s], :val => hsv[:v] })
       color.save
       num_added += 1
-      break if num_added >= 7
+      #break if num_added >= 7
     end
     self.save
   end
