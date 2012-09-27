@@ -16,12 +16,16 @@ module Spree
     		hsv = ColorUtil.rgb_to_hsv(arr[0].hex.to_i, arr[1].hex.to_i, arr[2].hex.to_i)
     		hue_start = hsv[:h] - 15
     		hue_end = hsv[:h] + 15
+            sat_start = hsv[:s] - 5
+            sat_end = hsv[:s] + 5
+            val_start = hsv[:v] - 5
+            val_end = hsv[:v] + 5
     		if hue_start < 0; hue_start += 360; end
     		if hue_end > 360; hue_end -= 360; end
     		if hue_start > hue_end
-    			ch = Spree::Color.where("hue > #{hue_start} or hue < #{hue_end}").joins(:image).order("abs(hue - #{hsv[:h]}) ASC").select("viewable_id")
+    			ch = Spree::Color.where("(hue > #{hue_start} or hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("abs(hue - #{hsv[:h]}) ASC").select("viewable_id")
     		else
-	    		ch = Spree::Color.where("hue > #{hue_start} and hue < #{hue_end}").joins(:image).order("abs(hue - #{hsv[:h]}) ASC").select("viewable_id")
+	    		ch = Spree::Color.where("(hue > #{hue_start} and hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("abs(hue - #{hsv[:h]}) ASC").select("viewable_id")
 	    	end
 
 	    	id_array = []
