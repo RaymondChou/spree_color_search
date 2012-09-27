@@ -5,7 +5,7 @@ Spree::Image.class_eval do
 
   require 'color_util'
   require 'RMagick'
-  include Magick
+  #include Magick
 
 	def extract_colors
     img = Magick::ImageList.new(self.attachment.to_file.path)
