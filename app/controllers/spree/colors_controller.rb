@@ -1,7 +1,7 @@
 module Spree
   class ColorsController < BaseController
     rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
+    helper 'spree/products'
     respond_to :html, :json
 
     require 'color_util'
