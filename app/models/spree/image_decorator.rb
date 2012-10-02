@@ -9,7 +9,7 @@ Spree::Image.class_eval do
 
 	def extract_colors
     img = Magick::ImageList.new(self.attachment.to_file.path)
-    q = img.quantize(35, Magick::RGBColorspace)
+    q = img.quantize(20, Magick::RGBColorspace)
     palette = q.color_histogram.sort {|a, b| b[1] <=> a[1]}
     num_added = 0
     (0..30).each do |i|
