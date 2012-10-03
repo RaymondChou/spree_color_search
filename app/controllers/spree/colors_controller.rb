@@ -6,10 +6,12 @@ module Spree
     require 'color_util'
 
     def index
+      @products= Spree::Product.joins(:taxons).where(Taxon.arel_table[:name].eq("Framed Art"))
       begin
-        #@taxon = Taxon.find_by_permalink!(params[:id])
-        @searcher = Config.searcher_class.new(params)
-        @products = @searcher.retrieve_products
+        #@searcher = Config.searcher_class.new(params)
+        #@products = @searcher.retrieve_products
+        #@products = Spree::Product.taxons_name_eq("Framed Art")
+        
 
       	@hex = params[:hex]
 
@@ -36,12 +38,12 @@ module Spree
   	    	ordered_hash = {}
 
   	    	ch.each do |value| 
-  	    		if ordered_hash[value[:viewable_id]].nil?
+  	    		if ordered_hash[value[:viewable_id]].nil? # && art_ids.include?(value[:viewable_id])
   		    		ordered_hash[value[:viewable_id]] = ordered_hash.length 
   		    		id_array << value[:viewable_id]
   		    	end
   	    	end
-          temp = @products.find(id_array).sort_by {|p| ordered_hash[p.id]}
+          temp = @products.where(:id => id_array).sort_by {|p| ordered_hash[p.id]}
   	    	@products = temp
   	    	respond_with @products
         end
