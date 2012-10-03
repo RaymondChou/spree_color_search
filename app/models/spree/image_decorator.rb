@@ -26,7 +26,7 @@ Spree::Image.class_eval do
       #if hsv[:s] < 35.0 || hsv[:v] < 35.0
       #  next
       #end
-      color = Spree::Color.new({ :image_id => self.id, :hue => hsv[:h], :sat => hsv[:s], :val => hsv[:v] })
+      color = Spree::Color.new({ :image_id => self.id, :hue => hsv[:h], :sat => hsv[:s], :val => hsv[:v], :rank => i })
       color.save
       num_added += 1
       #break if num_added >= 7

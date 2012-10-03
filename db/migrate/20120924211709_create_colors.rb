@@ -6,6 +6,7 @@ class CreateColors < ActiveRecord::Migration
       t.decimal :val
       t.string :name
       t.integer :image_id
+      t.integer :rank
 
       t.timestamps
     end

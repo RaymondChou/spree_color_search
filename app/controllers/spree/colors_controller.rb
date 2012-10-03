@@ -7,6 +7,7 @@ module Spree
 
     def index
       begin
+        #@taxon = Taxon.find_by_permalink!(params[:id])
         @searcher = Config.searcher_class.new(params)
         @products = @searcher.retrieve_products
 
@@ -26,9 +27,9 @@ module Spree
       		if hue_start < 0; hue_start += 360; end
       		if hue_end > 360; hue_end -= 360; end
       		if hue_start > hue_end
-      			ch = Spree::Color.where("(hue > #{hue_start} or hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("(abs(sat - #{hsv[:s]})*.33 + abs(hue - #{hsv[:h]})*.33 + abs(val - #{hsv[:v]})*.33) ASC").select("viewable_id")
+      			ch = Spree::Color.where("(hue > #{hue_start} or hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("(abs(sat - #{hsv[:s]})*.33 + abs(hue - #{hsv[:h]})*.33 + abs(val - #{hsv[:v]})*.33) + rank ASC").select("viewable_id")
       		else
-  	    		ch = Spree::Color.where("(hue > #{hue_start} and hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("(abs(sat - #{hsv[:s]})*.33 + abs(hue - #{hsv[:h]})*.33 + abs(val - #{hsv[:v]})*.33) ASC").select("viewable_id")
+  	    		ch = Spree::Color.where("(hue > #{hue_start} and hue < #{hue_end}) and (sat >= #{sat_start} and sat <= #{sat_end}) and (val >= #{val_start} and val <= #{val_end})").joins(:image).order("(abs(sat - #{hsv[:s]})*.33 + abs(hue - #{hsv[:h]})*.33 + abs(val - #{hsv[:v]})*.33) + rank ASC").select("viewable_id")
   	    	end
   #((hue > 345.0 or hue < 15.0) and (sat >= -5.0 and sat <= 5.0) and (val >= -5.0 and val <= 5.0))
   	    	id_array = []
